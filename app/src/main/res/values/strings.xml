@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HammingGolay</string>
+    <string name="dct_v">Decrypted text:</string>
+    <string name="ect_v">Encrypted text:</string>
+    <string name="dct_select">Select a decrypted text to encrypt...</string>
+    <string name="ect_select">Select a encrypted text to decrypt...</string>
+</resources>
