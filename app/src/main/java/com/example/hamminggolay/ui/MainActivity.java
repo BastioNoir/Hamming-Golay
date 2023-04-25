@@ -14,12 +14,23 @@ import android.widget.TextView;
 
 import com.example.hamminggolay.R;
 
+import com.example.hamminggolay.core.G23Decrypter;
+import com.example.hamminggolay.core.G24Decrypter;
+import com.example.hamminggolay.core.HammingDecrypter;
+
 public class MainActivity extends AppCompatActivity {
+    HammingDecrypter hDecrypter;
+    G23Decrypter g23Decrypter;
+    G24Decrypter g24Decrypter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        hDecrypter= new HammingDecrypter();
+        g23Decrypter= new G23Decrypter();
+        g24Decrypter= new G24Decrypter();
 
         EditText etEDT= findViewById(R.id.edTextDCT);
         EditText etECT= findViewById(R.id.edTextECT);
@@ -61,26 +72,29 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle(type + " parameters");
 
         if(type.equals("H")){
+            TextView txtP1= new TextView(this);
+            txtP1.setText("n: ");
+            EditText etP1 = new EditText(this);
 
+            TextView txtP2= new TextView(this);
+            txtP1.setText("k: ");
+            EditText etP2 = new EditText(this);
+
+            builder.setView(etP1);
+            builder.setPositiveButton("Act", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String profileName = editText.getText().toString();
+                    profiles.get(position).setName(profileName);
+                    profileArrayAdapter.notifyDataSetChanged();
+                }
+            });
+            builder.setNegativeButton("Cancel", null);
+            builder.create().show();
         }else if(type.equals("G23")){
 
         }else{
 
         }
-        TextView txtP1= new TextView(this);
-        txtP1.setText("P: ");
-        EditText etP1 = new EditText(this);
-
-        builder.setView(editText);
-        builder.setPositiveButton("Act", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String profileName = editText.getText().toString();
-                profiles.get(position).setName(profileName);
-                profileArrayAdapter.notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("Cancel", null);
-        builder.create().show();
     }
 }
