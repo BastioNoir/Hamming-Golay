@@ -3,9 +3,9 @@ package com.example.hamminggolay.core;
 import java.sql.SQLOutput;
 
 public class HammingDecrypter {
-    int n;
-    int k;
-    int [][] parityMatrix;
+    private static int n;
+    private static int k;
+    private static int [][] parityMatrix;
 
     //Default 7,4
     public HammingDecrypter(){
@@ -66,5 +66,47 @@ public class HammingDecrypter {
         }
         System.out.println("The new parity matrix is: "+H);
         return H;
+    }
+
+    // Algoritmo de corrección de errores para Hamming binario (n,k)
+    private static int correct(int[] code) {
+        int[] syndrome = new int[n-k];
+        int errorIndex = 0;
+
+        // Calcular el síndrome
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                syndrome[i] ^= code[j] * parityMatrix[j][i];
+            }
+        }
+
+        // Determinar el índice del error
+        errorIndex = syndrome[0] + syndrome[1]*2 + syndrome[2]*4;
+
+        // Corregir el error
+        if (errorIndex > 0) {
+            code[errorIndex-1] ^= 1;
+        }
+
+        // Retornar el índice del error
+        return errorIndex;
+    }
+
+    // Método para decodificar una palabra de código de Hamming binario (7,4)
+    public static int[] decode(int[] code) {
+        int errorIndex = correct(code);
+        int[] data = new int[k];
+
+        // Extraer los datos si no hay errores
+        if (errorIndex == 0) {
+            data[0] = code[2];
+            data[1] = code[4];
+            data[2] = code[5];
+            data[3] = code[6];
+        }
+
+        // Retornar los datos
+        System.out.println(data);
+        return data;
     }
 }

@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.hamminggolay.R;
-
+import com.example.hamminggolay.ui.R;
 import com.example.hamminggolay.core.G23Decrypter;
 import com.example.hamminggolay.core.G24Decrypter;
 import com.example.hamminggolay.core.HammingDecrypter;
@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     HammingDecrypter hDecrypter;
     G23Decrypter g23Decrypter;
     G24Decrypter g24Decrypter;
+
+    EditText etEDT;
+    EditText etECT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         g23Decrypter= new G23Decrypter();
         g24Decrypter= new G24Decrypter();
 
-        EditText etEDT= findViewById(R.id.edTextDCT);
-        EditText etECT= findViewById(R.id.edTextECT);
+        etEDT= findViewById(R.id.edTextDCT);
+        etECT= findViewById(R.id.edTextECT);
 
         Button hammingButton = findViewById(R.id.HammingButton);
         Button golay23Button = findViewById(R.id.Golay23Button);
@@ -42,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
         hammingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent subActividad = new Intent( MainActivity.this, NewGameActivity.class );
-//                subActividad.putExtra( "type", true);
-//                activityResultLauncher.launch(subActividad);
+                parametersSelector("H");
             }
         });
 
@@ -84,9 +85,12 @@ public class MainActivity extends AppCompatActivity {
             builder.setPositiveButton("Act", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String profileName = editText.getText().toString();
-                    profiles.get(position).setName(profileName);
-                    profileArrayAdapter.notifyDataSetChanged();
+                    if(!etP1.equals(null) && !etP2.equals(null)){
+                        hDecrypter.setN(Integer.parseInt(etP1.getText().toString()));
+                        hDecrypter.setK(Integer.parseInt(etP2.getText().toString()));
+
+                        hDecrypter.decode(transformData(etEDT.getText().toString()));
+                    }
                 }
             });
             builder.setNegativeButton("Cancel", null);
@@ -96,5 +100,14 @@ public class MainActivity extends AppCompatActivity {
         }else{
 
         }
+    }
+
+    public int[] transformData(String input){
+        int[] output= new int[]{};
+        for(int i=0; i<input.length();i++){
+            output[i]=Character.getNumericValue(input.charAt(i));
+        }
+        Log.e("","Input: "+input+", Output: "+output);
+        return output;
     }
 }
