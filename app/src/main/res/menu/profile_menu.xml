@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profileMenuInfo"
+        android:title="@string/ver_informacion" />
+    <item
+        android:id="@+id/profileMenuAddFriend"
+        android:title="@string/añadir_amigo" />
+    <item
+        android:id="@+id/profileMenuRemoveFriend"
+        android:title="@string/eliminar_amigo" />
+    <item
+        android:id="@+id/profileMenuUse"
+        android:title="@string/usar" />
+    <item
+        android:id="@+id/profileMenuEdit"
+        android:title="@string/editar" />
+    <item
+        android:id="@+id/profileMenuDelete"
+        android:title="@string/eliminar" />
+</menu>
