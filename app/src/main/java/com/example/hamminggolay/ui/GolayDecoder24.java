@@ -48,10 +48,22 @@ public class GolayDecoder24 {
     private static int[][] G= new int[12][24];
     private static int[][] GTR= new int[24][12];
 
+    public static int[] multiplyVectorWithMatrix(int[] vector, int[][] matrix) {
+        int[] result = new int[12];
 
+        for (int i = 0; i < 12; i++) {
+            int sum = 0;
+            for (int j = 0; j < 24; j++) {
+                sum += vector[j] * matrix[j][i];
+            }
+            result[i] = sum%2;
+        }
+        printArray(result);
+        return result;
+    }
 
     public static int[] decode(int[] received) {
-        int[] syndrome= multiplyMatrix(received);
+        int[] syndrome= multiplyVectorWithMatrix(received,GTR);
         int[] secondSyndrome= new int[12];
 
         int[] decodedWord= new int[24];
