@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.MainActivity">
 
     <LinearLayout
@@ -75,14 +76,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Example G23" />
+                android:text="Example G23"
+                app:backgroundTint="@color/teal_700" />
 
             <Button
                 android:id="@+id/e2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="EXAMPLE G24" />
+                android:text="EXAMPLE G24"
+                app:backgroundTint="@color/teal_700" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,14 +98,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Golay 23" />
+                android:text="Golay 23"
+                app:backgroundTint="@color/teal_700" />
 
             <Button
                 android:id="@+id/Golay24Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Golay 24" />
+                android:text="Golay 24"
+                app:backgroundTint="@color/teal_700" />
         </LinearLayout>
     </LinearLayout>
 
