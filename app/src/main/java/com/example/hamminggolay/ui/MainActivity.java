@@ -126,38 +126,44 @@ public class MainActivity extends AppCompatActivity {
     /**Adapta la entrada al decoder, g23 23 bits, g24 24 bits*/
     public int[] transformData(String input, int mode){
         System.out.println("INPUT: "+input);
-        int[] output= new int[24]; //Siempre 24
-        Log.w("Long Output: ",Integer.toString(output.length));
 
-        int temp_value;
-        int count_ones=0;
+        if(mode==24 && input.length()==23){
+            Toast.makeText(this, "Select a 24 bits word", Toast.LENGTH_SHORT).show();
+            return new int[]{-1};
+        }else{
+            int[] output= new int[24]; //Siempre 24
+            Log.w("Long Output: ",Integer.toString(output.length));
 
-        for(int i=0; i<mode;i++){
-            temp_value=Character.getNumericValue(input.charAt(i));
-            output[i]=temp_value;
-            if(temp_value==1){
-                //Se ha encontrado un 1
-                count_ones++;
+            int temp_value;
+            int count_ones=0;
+
+            for(int i=0; i<mode;i++){
+                temp_value=Character.getNumericValue(input.charAt(i));
+                output[i]=temp_value;
+                if(temp_value==1){
+                    //Se ha encontrado un 1
+                    count_ones++;
+                }
+                System.out.println("Added "+temp_value);
             }
-            System.out.println("Added "+temp_value);
-        }
 
-        //Sólo si 23
-        if(mode==23){
-            Log.w("","Mode 23 with "+count_ones+" ones");
-            if(count_ones%2==0){
-                //Si hay 1 pares, añadimos 0
-                output[23]=0;
-            }else{
-                output[23]=1;
+            //Sólo si 23
+            if(mode==23){
+                Log.w("","Mode 23 with "+count_ones+" ones");
+                if(count_ones%2==0){
+                    //Si hay 1 pares, añadimos 0
+                    output[23]=0;
+                }else{
+                    output[23]=1;
+                }
             }
-        }
 
-        Log.e("","Input: "+input+", Output: ");
-        for(int i=0;i<output.length;i++){
-            System.out.print(output[i]);
+            Log.e("","Input: "+input+", Output: ");
+            for(int i=0;i<output.length;i++){
+                System.out.print(output[i]);
+            }
+            System.out.println(" "+output[23]);
+            return output;
         }
-        System.out.println(" "+output[23]);
-        return output;
     }
 }

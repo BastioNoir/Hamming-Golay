@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HammingGolay</string>
+    <string name="app_name">Golay</string>
     <string name="dct_v">Decrypted text:</string>
     <string name="ect_v">Encrypted text:</string>
     <string name="dct_select">Wait for the response</string>
